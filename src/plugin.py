@@ -1,9 +1,14 @@
-from bottle import request, route
+from bottle import request, route, run
 
 
 def list_volumes():
     raise NotImplemented
     # return {'Volumes': [{'Name': basename(v)} for v in volumes], 'Err': ''}
+
+
+@route('/hello', ['GET'])
+def hello():
+    return 'hello world'
 
 
 @route('/Plugin.Activate', ['POST'])
@@ -15,13 +20,13 @@ def plugin_activate(req):
 def volume_create(req):
     name = req['Name']
     opts = req['Opts']
-    # return {'Err': ''}
+    return {'Err': ''}
 
 
 @route('/VolumeDriver.Remove', ['POST'])
 def volume_remove(req):
     name = req['Name']
-    # return {'Err': ''}
+    return {'Err': ''}
 
 
 @route('/VolumeDriver.Mount', ['POST'])
@@ -66,4 +71,8 @@ def volume_list(req):
 
 @route('/VolumeDriver.Capabilities', ['POST'])
 def driver_cap(req):
-    # return {"Capabilities": {"Scope": "local"}}
+    return {"Capabilities": {"Scope": "local"}}
+
+
+def run_server(host, port):
+    run(host=host, port=port)
