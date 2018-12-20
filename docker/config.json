@@ -1,0 +1,15 @@
+{
+    "description": "Lablup's Volume Plugin for Docker",
+    "documentation": "https://github.com/lablup/lablupvolume",
+    "entrypoint": ["/entrypoint.sh", ""],
+    "network": {
+        "type": "host"
+    },
+    "interface" : {
+       "types": ["docker.volumedriver/1.0"],
+       "socket": "lablupvolume.sock"
+    },
+    "linux": {
+        "capabilities": ["CAP_SYS_ADMIN"]
+    }
+}
