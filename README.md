@@ -1,2 +1,2 @@
-# Backend.AI volume plugin.
-Backend.AI plugin for docker volume.
+# lablupvolume plugin.
+Lablup's plugin for docker volume.
