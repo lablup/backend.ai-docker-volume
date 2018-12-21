@@ -12,8 +12,8 @@ RUN set -x; \
     && mkdir -p /run/docker/plugins
 
 ENV VERSION master
-ENV PKGNAME lablupvolume
-RUN curl -o ${PKGNAME}.zip -SL https://github.com/lablup/${PKGNAME}/archive/${VERSION}.zip \
+ENV PKGNAME backend.ai-docker-volume
+RUN wget -o ${PKGNAME}.zip -SL https://github.com/lablup/${PKGNAME}/archive/${VERSION}.zip \
     && unzip ${PKGNAME}.zip \
     && rm ${PKGNAME}.zip \
     && mv ${PKGNAME}-${VERSION} ${PKGNAME} \
