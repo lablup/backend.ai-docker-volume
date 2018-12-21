@@ -12,11 +12,17 @@ SOCKPATH = 'baivolume.sock'
 
 
 def get_sock_path():
+    """
+    Docker seems to search the plugin in /run/docker/plugins/<plugin_id>/<sock_name>
+    (https://github.com/moby/moby/issues/31723#issuecomment-286391588).
+
+    This function compose the correct socket directory by getting plugin's id info.
+    """
     global SOCKPATH
     client = docker.from_env()
     try:
         plugin = client.plugins.get(PLUGINNAME)
-        SOCKPATH = Path('/run/docker/plugins' / plugin.id / SOCKPATH)
+        SOCKPATH = Path('/run/docker/plugins') / plugin.id / SOCKPATH
     except docker.errors.NotFound:
         pass
     return SOCKPATH
