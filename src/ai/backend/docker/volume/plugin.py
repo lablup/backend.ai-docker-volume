@@ -1,4 +1,4 @@
-from bottle import request, route, run
+from bottle import request, route
 
 
 def list_volumes():
@@ -72,7 +72,3 @@ def volume_list(req):
 @route('/VolumeDriver.Capabilities', ['POST'])
 def driver_cap(req):
     return {"Capabilities": {"Scope": "local"}}
-
-
-def run_server(host, port):
-    run(host=host, port=port)

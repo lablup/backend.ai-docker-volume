@@ -1,18 +1,34 @@
-import click
 from ipaddress import ip_address
+from pathlib import Path
+import subprocess
 
-from plugin import run_server
+from bottle import app as bottle_app
+import click
+import docker
+from waitress import serve
 
-@click.option('-H', '--host', type=str, default='127.0.0.1', show_default=True,
-              help='Host address of the plugin server.')
-@click.option('-p', '--port', type=int ,default=1331, show_default=True,
-              help='Host port of the plugin server.')
+PLUGINNAME = 'lablup/backend.ai-docker-volume'
+SOCKPATH = 'baivolume.sock'
+
+
+def get_sock_path():
+    global SOCKPATH
+    client = docker.from_env()
+    try:
+        plugin = client.plugins.get(PLUGINNAME)
+        SOCKPATH = Path('/run/docker/plugins' / plugin.id / SOCKPATH)
+    except docker.errors.NotFound:
+        pass
+    return SOCKPATH
+
+
 @click.command(context_settings=dict(help_option_names=['-h', '--help']))
-def main(host, port):
+def main():
     """
     Command line interface for Lablup's docker volume plugin.
     """
-    run_server(host, port)
+    sock_path = get_sock_path()
+    serve(bottle_app, unix_socket=sock_path)
 
 
 if __name__ == '__main__':

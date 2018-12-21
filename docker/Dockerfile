@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 MAINTAINER Jonghyun Park <adrysn@gmail.com>
 
 RUN set -x; \
@@ -13,7 +13,7 @@ RUN set -x; \
 
 ENV VERSION master
 ENV PKGNAME backend.ai-docker-volume
-RUN wget -o ${PKGNAME}.zip -SL https://github.com/lablup/${PKGNAME}/archive/${VERSION}.zip \
+RUN curl -o ${PKGNAME}.zip -SL https://github.com/lablup/${PKGNAME}/archive/${VERSION}.zip \
     && unzip ${PKGNAME}.zip \
     && rm ${PKGNAME}.zip \
     && mv ${PKGNAME}-${VERSION} ${PKGNAME} \
