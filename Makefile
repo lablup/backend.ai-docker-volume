@@ -9,13 +9,13 @@ clean:
 
 rootfs:
 	@echo "Build rootfs image"
-	@docker build -t rootfs .
-	@docker create --name cnttmp rootfs
+	@docker build -t rootfsimage .
+	@docker create --name rootfs rootfsimage
 	@echo "Create rootfs directory in ${PLUGIN_PATH}/rootfs"
 	@mkdir -p ${PLUGIN_PATH}/rootfs
-	@docker export cnttmp | tar -x -C ${PLUGIN_PATH}/rootfs || true
-	@docker rm -vf cnttmp
-	@docker rmi rootfs
+	@docker export rootfs | tar -x -C ${PLUGIN_PATH}/rootfs || true
+	@docker rm -vf rootfs
+	@docker rmi rootfsimage
 	@echo "Copy config.json to ${PLUGIN_PATH}"
 	@cp config.json ${PLUGIN_PATH}
 

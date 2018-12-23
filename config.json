@@ -1,7 +1,7 @@
 {
     "description": "Lablup's Backend.AI Volume Plugin for Docker",
     "documentation": "https://github.com/lablup/backend.ai-docker-volume",
-    "entrypoint": ["/entrypoint.sh", ""],
+    "entrypoint": ["/entrypoint.sh"],
     "network": {
         "type": "host"
     },
