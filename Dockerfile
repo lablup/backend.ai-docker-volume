@@ -7,6 +7,8 @@ RUN set -x; \
         python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
 ENV VERSION master
 ENV PKGNAME backend.ai-docker-volume
 
@@ -18,4 +20,5 @@ RUN cd /${PKGNAME} \
     && pip3 install -U pip setuptools \
     && python3 setup.py install
 
-ENTRYPOINT ["/entrypoint.sh"]
+# ENTRYPOINT ["/entrypoint.sh"]
+CMD ["bai-volume"]
